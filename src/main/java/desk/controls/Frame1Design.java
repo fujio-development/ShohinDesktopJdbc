@@ -75,7 +75,7 @@ public class Frame1Design {
 		labelsSetting("label4", "備考：", 400, 400, 100, 25);
 		labelUuid.setHorizontalAlignment(JLabel.RIGHT);
 		labelUuid = (JLabel)componentsSetting(labelUuid, "labelUuid", 475, 250, 270, 25);
-		labelFoot.setText("Copyright  ©  2021-2022  fujio-development");
+		labelFoot.setText("Copyright  ©  2021-2022  furumiya-development");
 		labelFoot = (JLabel)componentsSetting(labelFoot, "labelFoot", 30, 530, 500, 25);
 		
 		textShohinCode = (JTextField)componentsSetting(textShohinCode, "textShohinCode", 600, 300, 150, 25);

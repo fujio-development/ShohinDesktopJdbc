@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class VoTime extends ValueObject<VoTime> {
 
 	private final BigDecimal value;
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmmss");
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[]Hmmss");
 	
 	/** 完全コンストラクタ 
 	 * */
@@ -34,7 +34,11 @@ public class VoTime extends ValueObject<VoTime> {
 	/** コロン付きゲッター(00:00:00)
 	 * @return*/
 	public String getValueAndColonFormat() {
-		var time = new StringBuilder(value.toString()).insert(4, ':').insert(2, ':');
+		var time = new StringBuilder(value.toString());
+		if (time.length() < 6)
+			time.insert(0, "0");
+		time = time.insert(4, ':').insert(2, ':');
+		//var time = new StringBuilder(value.toString()).insert(4, ':').insert(2, ':');
 		return time.toString();
 	}
 	

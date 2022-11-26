@@ -13,6 +13,26 @@ ___
 
 ![Img](Readme_img.png)  
 
+## 事前準備  
+### サンプルプログラムを実行する際のデータベース作成  
+Microsoft SQL Server Management Studioのクエリーで以下を実行するかこれ相当をデザイナで作成します。  
+
+**データベース作成(Microsoft SQL Server ManagementStudioでのデフォルト相当)**  
+※Microsoft SQL Server 2022 Express Editionで名前付きインスタンスがSQLEXPRESSの場合のクエリーです。  
+別のインスタンス名やSQL Server 2019などのバージョンの場合はPathのMSSQL16.SQLEXPRESS(ディレクトリ名)  
+の数字が違いますのでご自身のディレクトリ名に合わせて下さい。  
+
+```
+use [master]
+CREATE DATABASE JdbcSample
+ON
+(NAME=JdbcSample,FILENAME='C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\JdbcSample.mdf',SIZE=8MB,FILEGROWTH=64MB)
+LOG ON
+(NAME=JdbcSample_log,FILENAME='C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\JdbcSample_log.ldf',SIZE=8MB,FILEGROWTH=64MB)
+	
+ALTER DATABASE JdbcSample SET AUTO_CLOSE OFF
+```
+
 **テーブル作成**  
 ```
 use [master]
@@ -25,5 +45,9 @@ create table [JdbcSample].[dbo].[shohins] (
 	remarks varchar(255),               /*備考*/
 	primary key (unique_id))
 ```
+
+**SQL Server Configuration Manager**  
+
+SQL Server Browserの実行とTCP/IPの有効を適用して下さい。
 
 ___

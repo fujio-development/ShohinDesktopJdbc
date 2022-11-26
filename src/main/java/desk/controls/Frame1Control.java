@@ -76,7 +76,10 @@ public class Frame1Control implements ActionListener, ListSelectionListener {
 				e.printStackTrace();
 			}
 			
-			var time = new StringBuilder(list.get(i).getEditTime().toString()).insert(4, ':').insert(2, ':');
+			var time = new StringBuilder(list.get(i).getEditTime().toString());
+			if (time.length() < 6)
+				time.insert(0, "0");
+			time = time.insert(4, ':').insert(2, ':');
 			Object[] obj = {list.get(i).getUniqueId(), 
 					list.get(i).getShohinCode(),
 	        		list.get(i).getShohinName(),
@@ -98,6 +101,7 @@ public class Frame1Control implements ActionListener, ListSelectionListener {
 			return;
 		}
 		
+		window.getLabelArea().append("1件追加しました。\n");
 		msgDialogModal("タイトル", "追加しました。", 1);
 	}
 	
@@ -108,22 +112,27 @@ public class Frame1Control implements ActionListener, ListSelectionListener {
         var note = window.getTextRemarks().getText();
         try {
         	service.editShohin(id, code, name, note);
-        	msgDialogModal("情報", "更新しました。", 1);
         }
         catch (DomainObjectException | BusinessAppException e) {
         	msgDialogModal("エラー", e.getMessage(), 2);
+        	return;
         }
+        
+        window.getLabelArea().append("1件更新しました。\n");
+        msgDialogModal("情報", "更新しました。", 1);
 	}
 	
 	private void erase() {
 		try {
 			service.removeShohin(window.getLabelUuid().getText());
-			window.getLabelArea().append("該当商品を削除しました。");
-			msgDialogModal("タイトル", "該当商品を削除しました。", 1);
 		}
 		catch (DomainObjectException | BusinessAppException e) {
         	msgDialogModal("エラー", e.getMessage(), 2);
+        	return;
         }
+		
+		window.getLabelArea().append("1件削除しました。\n");
+		msgDialogModal("タイトル", "該当商品を削除しました。", 1);
 	}
 	
 	private void msgDialogModal(String title, String message, int type) {
